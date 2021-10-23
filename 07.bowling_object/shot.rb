@@ -1,14 +1,10 @@
 class Shot
   attr_reader :mark
   def initialize(mark)
-    @mark = mark.split(',')
+    @mark = mark
   end
-  def change_to_integer
-    @mark.map do |m|
-      if m == 'X'
-        m = 10
-      end
-      m.to_i
-    end
+  def score
+    return 10 if @mark == 'X'
+    mark.to_i
   end
 end
