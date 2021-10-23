@@ -1,8 +1,8 @@
 require_relative './frame'
 
 class Game
-  def initialize(score)
-    @frames = Frame.new(score).divide_by_frame
+  def initialize(input_text)
+    @frames = Frame.divide_by_frame(input_text)
     @point = 0
   end
   def calculate_score
