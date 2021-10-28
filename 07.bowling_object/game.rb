@@ -9,6 +9,14 @@ class Game
     @frames = frames.map.with_index do |frame,index|
       Frame.new(*frame,index) #=>引数に6,3 が入る
     end #=>frameｸﾗｽのｲﾝｽﾀﾝｽ10個の入った配列
+
+    @next_frames = @frames.map.with_index do |frame, index|
+      @frames[index + 1]
+    end
+
+    @after_next_frames = @frames.map.with_index do |frame, index|
+      @frames[index + 2]
+    end
   
   end
   # この中で@frames[i+1]すると次のフレームが取れる
