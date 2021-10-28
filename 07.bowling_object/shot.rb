@@ -3,8 +3,9 @@ class Shot
   def initialize(mark)
     @mark = mark
   end
-  def score
-    return 10 if @mark == 'X'
-    mark.to_i
+  def score #記号→数値に変換
+    @mark == 'X' ? 10 : @mark.to_i
   end
 end
+
+

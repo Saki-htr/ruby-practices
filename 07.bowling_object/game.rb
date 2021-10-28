@@ -2,32 +2,27 @@ require_relative './frame'
 
 class Game
   def initialize(input_text)
-    @frames = Frame.divide_by_frame(input_text)
-    @point = 0
-  end
-  def calculate_score
-    (0..9).each do |s|
-      frame = @frames.slice(s)
-      next_frame = @frames.slice(s + 1)
-      after_next_frame = @frames.slice(s + 2)
-      next_frame = [] if next_frame.nil?
-      after_next_frame = [] if after_next_frame.nil?
-      add_frame = next_frame + after_next_frame
-
-      @point += if frame[0] == 10
-        frame.sum + add_frame.slice(0, 2).sum
-      elsif frame.sum == 10
-        frame.sum + add_frame.slice(0)
-      else
-        frame.sum
-      end
+    frames = Frame.divide_by_frame(input_text)
+    #=>[[6, 3], [9, 0], [0, 3], [8, 2], [7, 3], [10], [9, 1], [8, 0], [10], [6, 4, 5]]
+    frames.map.with_index do |frame,index|
+      @frames = Frame.new(*frame,index) #=>引数に6,3 が入る
+      
     end
-    @point
+  end
+
+  def calculate_total_score
+  # 10フレームのスコアを足す
+    @frames.map do |frame|
+      frame.frame_score #=>[frame1の合計,...frame10の合計]
+    end.sum #=>スコア計算結果
   end
 end
 
-input_score = ARGV[0]
+# ここだけ別ファイルにする方も
+input_text = ARGV[0]
 if __FILE__ == $PROGRAM_NAME
-  game = Game.new(input_score)
-  puts game.calculate_score
+  game = Game.new(input_text)
+  # puts game.calculate_total_score
 end
+
+# Game.new('6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,X,X,X')
