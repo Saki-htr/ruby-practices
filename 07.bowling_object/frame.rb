@@ -1,3 +1,4 @@
+require_relative './game'
 require_relative './shot'
 
 class Frame
@@ -39,6 +40,16 @@ class Frame
     end
   end
 
+  def first_shot_score
+    @first_shot.score
+  end
+  def second_shot_score
+    @second_shot.score
+  end
+  def third_shot_score
+    @third_shot.score
+  end
+
   # private #privateはレシーバをとって呼び出せない
   def strike? #true/false
     @first_shot.score == 10
@@ -48,11 +59,10 @@ class Frame
   end
 
   def strike_calulate(next_frame,after_next_frame)
-    #=>Integer(ストライクの場合の合計点)
+    #=>Integer(ストライクの場合のフレーム計算)
   end
   def spare_calculate(next_frame)
-    @first_shot+
-
+    @first_shot
   end
 
   def last_frame?
@@ -60,5 +70,5 @@ class Frame
   end
 end
 
-frame = Frame.new(10,index = 0)
-# binding.irb
+
+
