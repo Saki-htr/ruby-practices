@@ -3,8 +3,6 @@
 require_relative './frame'
 
 class Game
-  attr_reader :frames, :next_frames, :after_next_frame
-
   def initialize(input_text)
     frames = Frame.divide_by_frame(input_text)
     @frames = frames.map.with_index do |frame, index|
