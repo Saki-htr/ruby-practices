@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require_relative './game'
 require_relative './shot'
 
 class Frame
-  def initialize(first_mark,second_mark=nil,third_mark=nil,index,next_frame,after_next_frame)
+  def initialize(first_mark, second_mark = nil, third_mark = nil, index, next_frame, after_next_frame)
     @first_shot = Shot.new(first_mark)
     @second_shot = Shot.new(second_mark)
     @third_shot = Shot.new(third_mark)
@@ -44,21 +46,23 @@ class Frame
   def first_shot_score
     @first_shot.score
   end
+
   def second_shot_score
     @second_shot.score
   end
+
   def third_shot_score
     @third_shot.score
   end
 
-  def strike? #true/false
+  def strike?
     @first_shot.score == 10
   end
+
   def spare?
     @first_shot.score + @second_shot.score == 10
   end
 
-  #普通に計算
   def score
     first_shot_score + second_shot_score + third_shot_score
   end
@@ -70,6 +74,7 @@ class Frame
       first_shot_score + @next_frame[0] + @next_frame[1]
     end
   end
+
   def calculate_spare_frame
     first_shot_score + second_shot_score + @next_frame[0]
   end
