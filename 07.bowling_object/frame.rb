@@ -2,14 +2,16 @@ require_relative './game'
 require_relative './shot'
 
 class Frame
-  def initialize(first_mark,second_mark=nil,third_mark=nil,index)
+  def initialize(first_mark,second_mark=nil,third_mark=nil,index,next_frame,after_next_frame)
     @first_shot = Shot.new(first_mark)
     @second_shot = Shot.new(second_mark)
     @third_shot = Shot.new(third_mark)
     @index = index
+    @next_frame = next_frame
+    @after_next_frame = after_next_frame
   end
 
-  def self.divide_by_frame(input_text)#フレームごとにわける
+  def self.divide_by_frame(input_text)
     frame = []
     frames = []
     input_text.split(',').each do |mark|
@@ -27,16 +29,15 @@ class Frame
     frames
   end
 
-  def calculate_frame_score(next_frame,after_next_frame) #⇑を使ってフレームごとの計算をさせる
+  def calculate_frame_score
     if last_frame?
-      @first_shot.score + @second_shot.score + @third_shot.score
+      score
     elsif strike?
-      strike_calculate(next_frame,after_next_frame)
-
+      calulate_strike_frame
     elsif spare?
-      spare_calculate(next_frame)
+      calculate_spare_frame
     else
-      @first_shot.score + @second_shot.score + @third_shot.score
+      score
     end
   end
 
@@ -50,7 +51,6 @@ class Frame
     @third_shot.score
   end
 
-  # private #privateはレシーバをとって呼び出せない
   def strike? #true/false
     @first_shot.score == 10
   end
@@ -58,16 +58,23 @@ class Frame
     @first_shot.score + @second_shot.score == 10
   end
 
-  def strike_calulate(next_frame,after_next_frame)
-    #=>Integer(ストライクの場合のフレーム計算)
+  #普通に計算
+  def score
+    first_shot_score + second_shot_score + third_shot_score
   end
-  def spare_calculate(next_frame)
-    @first_shot
+
+  def calulate_strike_frame
+    if @next_frame[1].nil?
+      first_shot_score + @next_frame[0] + @after_next_frame[0]
+    else
+      first_shot_score + @next_frame[0] + @next_frame[1]
+    end
+  end
+  def calculate_spare_frame
+    first_shot_score + second_shot_score + @next_frame[0]
   end
 
   def last_frame?
     @index == 9
   end
 end
-
-
