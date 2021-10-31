@@ -4,13 +4,13 @@ require_relative './game'
 require_relative './shot'
 
 class Frame
-  def initialize(first_mark, second_mark = nil, third_mark = nil, index, next_frame, after_next_frame)
+  def initialize(index, frames, first_mark, second_mark = nil, third_mark = nil)
     @first_shot = Shot.new(first_mark)
     @second_shot = Shot.new(second_mark)
     @third_shot = Shot.new(third_mark)
     @index = index
-    @next_frame = next_frame
-    @after_next_frame = after_next_frame
+    @next_frame = frames[index + 1]
+    @after_next_frame = frames[index + 2]
   end
 
   def self.divide_by_frame(input_text)

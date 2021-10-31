@@ -6,7 +6,7 @@ class Game
   def initialize(input_text)
     frames = Frame.divide_by_frame(input_text)
     @frames = frames.map.with_index do |frame, index|
-      Frame.new(*frame, index, frames[index + 1], frames[index + 2])
+      Frame.new(index, frames, *frame)
     end
   end
 
