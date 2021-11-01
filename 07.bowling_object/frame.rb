@@ -5,12 +5,12 @@ require_relative './shot'
 
 class Frame
   def initialize(index, frames, first_mark, second_mark = nil, third_mark = nil)
-    @first_shot = Shot.new(first_mark)
-    @second_shot = Shot.new(second_mark)
-    @third_shot = Shot.new(third_mark)
     @index = index
     @next_frame = frames[index + 1]
     @after_next_frame = frames[index + 2]
+    @first_shot = Shot.new(first_mark)
+    @second_shot = Shot.new(second_mark)
+    @third_shot = Shot.new(third_mark)
   end
 
   def self.divide_by_frame(input_text)
@@ -56,11 +56,11 @@ class Frame
   end
 
   def strike?
-    @first_shot.score == 10
+    first_shot_score == 10
   end
 
   def spare?
-    @first_shot.score + @second_shot.score == 10
+    first_shot_score + second_shot_score == 10
   end
 
   def score
