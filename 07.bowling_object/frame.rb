@@ -63,7 +63,7 @@ class Frame
     first_shot_score + second_shot_score == 10
   end
 
-  def score
+  def calculate_normal_score
     first_shot_score + second_shot_score + third_shot_score
   end
 
