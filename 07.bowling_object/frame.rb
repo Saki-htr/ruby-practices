@@ -31,15 +31,15 @@ class Frame
     frames
   end
 
-  def calculate_frame_score
+  def calc_frame_score
     if last_frame?
-      score
+      calc_normal_frame
     elsif strike?
-      calulate_strike_frame
+      calc_strike_frame
     elsif spare?
-      calculate_spare_frame
+      calc_spare_frame
     else
-      score
+      calc_normal_frame
     end
   end
 
@@ -63,11 +63,11 @@ class Frame
     first_shot_score + second_shot_score == 10
   end
 
-  def calculate_normal_score
+  def calc_normal_frame
     first_shot_score + second_shot_score + third_shot_score
   end
 
-  def calulate_strike_frame
+  def calc_strike_frame
     if @next_frame[1].nil?
       first_shot_score + @next_frame[0] + @after_next_frame[0]
     else
@@ -75,7 +75,7 @@ class Frame
     end
   end
 
-  def calculate_spare_frame
+  def calc_spare_frame
     first_shot_score + second_shot_score + @next_frame[0]
   end
 

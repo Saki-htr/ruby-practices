@@ -10,13 +10,13 @@ class Game
     end
   end
 
-  def calculate_total_score
-    @frames.map(&:calculate_frame_score).sum
+  def calc_total_score
+    @frames.map(&:calc_frame_score).sum
   end
 end
 
 input_text = ARGV[0]
 if __FILE__ == $PROGRAM_NAME
   game = Game.new(input_text)
-  puts game.calculate_total_score
+  puts game.calc_total_score
 end

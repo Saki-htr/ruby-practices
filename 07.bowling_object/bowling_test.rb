@@ -5,31 +5,23 @@ require_relative './game'
 require_relative './shot'
 
 class GameTest < Minitest::Test
-  def test_calculate1
-    assert_equal 139, Game.new('6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,6,4,5').calculate_total_score
+  def test_calc1
+    assert_equal 139, Game.new('6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,6,4,5').calc_total_score
   end
 
-  def test_calculate2
-    assert_equal 164, Game.new('6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,X,X,X').calculate_total_score
+  def test_calc2
+    assert_equal 164, Game.new('6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,X,X,X').calc_total_score
   end
 
-  def test_calculate3
-    assert_equal 107, Game.new('0,10,1,5,0,0,0,0,X,X,X,5,1,8,1,0,4').calculate_total_score
+  def test_calc3
+    assert_equal 107, Game.new('0,10,1,5,0,0,0,0,X,X,X,5,1,8,1,0,4').calc_total_score
   end
 
-  def test_calculate_all_zero
-    assert_equal 0, Game.new('0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0').calculate_total_score
+  def test_calc_all_zero
+    assert_equal 0, Game.new('0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0').calc_total_score
   end
 
-  def test_calculate_perfect
-    assert_equal 300, Game.new('X,X,X,X,X,X,X,X,X,X,X,X').calculate_total_score
-  end
-end
-
-class GameTest < Minitest::Test
-  def test_score
-    assert_equal 1, Shot.new('1').score
-    assert_equal 5, Shot.new('5').score
-    assert_equal 10, Shot.new('X').score
+  def test_calc_perfect
+    assert_equal 300, Game.new('X,X,X,X,X,X,X,X,X,X,X,X').calc_total_score
   end
 end
