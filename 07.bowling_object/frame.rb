@@ -43,6 +43,7 @@ class Frame
     end
   end
 
+  private
   def first_shot_score
     @first_shot.score
   end
