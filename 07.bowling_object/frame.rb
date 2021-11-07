@@ -4,13 +4,13 @@ require_relative './game'
 require_relative './shot'
 
 class Frame
-  def initialize(index, frames, first_mark, second_mark = nil, third_mark = nil)
+  def initialize(index, frames, first_shot, second_shot = 0, third_shot = 0)
     @index = index
     @next_frame = frames[index + 1]
     @after_next_frame = frames[index + 2]
-    @first_shot = Shot.new(first_mark)
-    @second_shot = Shot.new(second_mark)
-    @third_shot = Shot.new(third_mark)
+    @first_shot = first_shot
+    @second_shot = second_shot
+    @third_shot = third_shot
   end
 
   def self.divide_by_frame(input_text)
@@ -44,40 +44,29 @@ class Frame
   end
 
   private
-  def first_shot_score
-    @first_shot.score
-  end
-
-  def second_shot_score
-    @second_shot.score
-  end
-
-  def third_shot_score
-    @third_shot.score
-  end
 
   def strike?
-    first_shot_score == 10
+    @first_shot == 10
   end
 
   def spare?
-    first_shot_score + second_shot_score == 10
+    @first_shot + @second_shot == 10
   end
 
   def calc_normal_frame
-    first_shot_score + second_shot_score + third_shot_score
+    @first_shot + @second_shot + @third_shot
   end
 
   def calc_strike_frame
     if @next_frame[1].nil?
-      first_shot_score + @next_frame[0] + @after_next_frame[0]
+      @first_shot + @next_frame[0] + @after_next_frame[0]
     else
-      first_shot_score + @next_frame[0] + @next_frame[1]
+      @first_shot + @next_frame[0] + @next_frame[1]
     end
   end
 
   def calc_spare_frame
-    first_shot_score + second_shot_score + @next_frame[0]
+    @first_shot + @second_shot + @next_frame[0]
   end
 
   def last_frame?
