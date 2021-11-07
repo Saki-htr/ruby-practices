@@ -13,24 +13,6 @@ class Frame
     @third_shot = third_shot
   end
 
-  def self.divide_by_frame(input_text)
-    frame = []
-    frames = []
-    input_text.split(',').each do |mark|
-      score = Shot.new(mark).score
-      frame << score
-      if frames.size <= 9
-        if frame.size >= 2 || score == 10
-          frames << frame.dup
-          frame.clear
-        end
-      else
-        frames.last << score
-      end
-    end
-    frames
-  end
-
   def calc_frame_score
     if last_frame?
       calc_normal_frame

@@ -4,11 +4,29 @@ require_relative './frame'
 
 class Game
   def initialize(input_text)
-    frames = Frame.divide_by_frame(input_text)
+    frames = Game.divide_by_frame(input_text)
     @frames = frames.map.with_index do |frame, index|
       Frame.new(index, frames, *frame)
       # 引数のframesは、frames[index + 1], frames[index + 2]と書き、Frameのinitializeメソッドで引数を2つ用意したかったのですが、rubocopにparameterを5個以内にするよう指摘されたので、このように書きました
     end
+  end
+
+  def self.divide_by_frame(input_text)
+    frame = []
+    frames = []
+    input_text.split(',').each do |mark|
+      score = Shot.new(mark).score
+      frame << score
+      if frames.size <= 9
+        if frame.size >= 2 || score == 10
+          frames << frame.dup
+          frame.clear
+        end
+      else
+        frames.last << score
+      end
+    end
+    frames
   end
 
   def calc_total_score
