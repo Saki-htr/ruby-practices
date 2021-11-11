@@ -6,8 +6,7 @@ class Game
   def initialize(input_text)
     frames = Game.divide_by_frame(input_text)
     @frames = frames.map.with_index do |frame, index|
-      Frame.new(index, frames, *frame)
-      # 引数のframesは、frames[index + 1], frames[index + 2]と書き、Frameのinitializeメソッドで引数を2つ用意したかったのですが、rubocopにparameterを5個以内にするよう指摘されたので、このように書きました
+      Frame.new(index, frames[index..(index + 2)])
     end
   end
 

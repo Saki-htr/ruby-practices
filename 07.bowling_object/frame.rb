@@ -4,13 +4,12 @@ require_relative './game'
 require_relative './shot'
 
 class Frame
-  def initialize(index, frames, first_shot, second_shot = 0, third_shot = 0)
+  def initialize(index, frames)
     @index = index
+    @current_frame = frames[index]
     @next_frame = frames[index + 1]
     @after_next_frame = frames[index + 2]
-    @first_shot = first_shot
-    @second_shot = second_shot
-    @third_shot = third_shot
+    binding.irb
   end
 
   def calc_frame_score
