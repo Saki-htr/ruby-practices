@@ -5,7 +5,8 @@ require_relative './frame'
 class Game
   def initialize(input_text)
     frames = Game.divide_by_frame(input_text)
-    @frames = frames.map.with_index do |frame, index|
+    p frames
+    @frames = frames.map.with_index do |_, index|
       Frame.new(index, frames[index..(index + 2)])
     end
   end
