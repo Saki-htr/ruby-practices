@@ -4,19 +4,11 @@ require_relative './game'
 require_relative './shot'
 
 class Frame
-  def initialize(index, frames) #=>[[6, 3], [9, 0], [0, 3]]
+  def initialize(index, frames)
     @index = index
-    @current_frame = frames[index]
-    @next_frame = frames[index + 1]
-    @after_next_frame = frames[index + 2]
-    
-    # 追記
-    if @next_frame == []
-      @next_frame = 0
-    end
-    if @after_next_frame == []
-      @after_next_frame = 0
-    end
+    @current_frame = frames[0]
+    @next_frame = frames[1]
+    @after_next_frame = frames[2]
   end
 
   def calc_frame_score
