@@ -12,7 +12,7 @@ class FileInfo
   end
 
   def file_type
-    File.lstat(@type).ftype
+    File.lstat(@file).ftype
   end
 
   def file_permission

@@ -15,11 +15,7 @@ class LsCommand
 
    #file_listをインスタンス作成に使って、lオプションに必要な情報を取得するクラスを作る
     file_infos = files.map { |file| FileInfo.new(file)}
-    formatter = if options['l']
-      LongFormatter.new(file_infos).output
-    else
-      ShortFormatter.new(file_infos).output
-    end
+    formatter =  options['l'] ? LongFormatter.new(file_infos).output : ShortFormatter.new(file_infos).output
 
    #lオプションならLongFormatter呼び出し、それ以外はShortFormatter呼び出す
   end
