@@ -28,7 +28,7 @@ class FileInfo
   end
 
   def group
-    Etc.getgrgid(File.stat(@file).uid).name
+    Etc.getgrgid(File.stat(@file).gid).name
   end
 
   def file_size
@@ -37,12 +37,6 @@ class FileInfo
 
   def file_mtime
     File.mtime(@file)
-  end
-
-  def file_link
-    name = if File.lstat(@file).symlink?
-      File.readlink(@file)
-    end
   end
 end
 
