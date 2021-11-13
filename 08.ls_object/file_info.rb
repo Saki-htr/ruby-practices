@@ -2,6 +2,7 @@
 require 'etc'
 
 class FileInfo
+  attr_reader :file
   def initialize(file)
     @file = file
   end

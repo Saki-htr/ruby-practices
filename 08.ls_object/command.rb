@@ -3,6 +3,9 @@
 require 'optparse'
 require_relative 'file_list'
 require_relative 'file_info'
+require_relative 'long_formatter'
+require_relative 'short_formatter'
+
 
 class LsCommand
   def main
