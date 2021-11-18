@@ -52,10 +52,8 @@ class Frame
   def calc_strike_frame(next_frame, after_next_frame)
     if next_frame.strike?
       if after_next_frame
-        # afterある場合
         first_shot_score + next_frame.first_shot_score + after_next_frame.first_shot_score
       else
-        # afterない場合
         first_shot_score + next_frame.first_shot_score + next_frame.second_shot_score
       end
     else
