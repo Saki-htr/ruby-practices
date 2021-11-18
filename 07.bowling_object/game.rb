@@ -6,7 +6,7 @@ class Game
   def initialize(input_text)
     frames = Game.divide_by_frame(input_text)
     @frames = frames.map.with_index do |frame, index|
-      Frame.new(index, *frame)
+      Frame.new(index, frames[index..(index + 2)])
     end
   end
 
@@ -14,23 +14,24 @@ class Game
     frame = []
     frames = []
     input_text.split(',').each do |mark|
-      frame << mark
+      score = Shot.new(mark).score
+      frame << score
       if frames.size <= 9
-        if frame.size >= 2 || mark == 'X'
+        if frame.size >= 2 || score == 10
           frames << frame.dup
           frame.clear
         end
       else
-        frames.last << mark
+        frames.last << score
       end
     end
     frames
   end
 
   def calc_total_score
-    @frames.map.with_index do |frame,index|
-      frame.calc_frame_score(@frames[index+1],@frames[index+2])
-    end
+    @frames.map.with_index do |frame|
+      frame.calc_frame_score
+    end.sum
   end
 end
 
