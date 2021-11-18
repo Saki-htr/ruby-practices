@@ -6,7 +6,7 @@ class Game
   def initialize(input_text)
     frames = Game.divide_by_frame(input_text)
     @frames = frames.map.with_index do |frame, index|
-      Frame.new(index, frames[index..(index + 2)])
+      Frame.new(index, frames,*frame,)
     end
   end
 
@@ -14,15 +14,14 @@ class Game
     frame = []
     frames = []
     input_text.split(',').each do |mark|
-      score = Shot.new(mark).score
-      frame << score
+      frame << mark
       if frames.size <= 9
-        if frame.size >= 2 || score == 10
+        if frame.size >= 2 || mark == 'X'
           frames << frame.dup
           frame.clear
         end
       else
-        frames.last << score
+        frames.last << mark
       end
     end
     frames

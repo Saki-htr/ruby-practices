@@ -3,12 +3,13 @@ require_relative './game'
 require_relative './shot'
 
 class Frame
-  def initialize(index, frames)
-    #=>[[6, 3], [9, 0], [0, 3]]
+  def initialize(index, frames,first_mark,second_mark=0,third_mark=0)
     @index = index
-    @current_frame = frames[0]
-    @next_frame = frames[1]
-    @after_next_frame = frames[2]
+    @next_frame = frames[index+1]&.map {|mark| mark == 'X' ? 10 : mark.to_i }
+    @after_next_frame = frames[index+2]&.map {|mark| mark == 'X' ? 10 : mark.to_i }
+    @first_shot = Shot.new(first_mark)
+    @second_shot = Shot.new(second_mark)
+    @third_shot = Shot.new(third_mark)
   end
 
   def calc_frame_score
@@ -24,24 +25,38 @@ class Frame
   end
 
   private
+  def first_shot_score
+    @first_shot.score
+  end
+  def second_shot_score
+    @second_shot.score
+  end
+  def third_shot_score
+    @third_shot.score
+  end
+
   def strike?
-    @current_frame == [10]
+    first_shot_score == 10
   end
   def spare?
-    @current_frame.sum == 10
+    if !strike?
+      first_shot_score + second_shot_score == 10
+    end
   end
+
   def calc_normal_frame
-    @current_frame.sum
+    first_shot_score + second_shot_score + third_shot_score
   end
+
   def calc_strike_frame
     if @next_frame[1].nil?
-      @current_frame[0] + @next_frame[0] + @after_next_frame[0]
+      first_shot_score + @next_frame[0] + @after_next_frame[0]
     else
-      @current_frame[0] + @next_frame[0] + @next_frame[1]
+      first_shot_score + @next_frame[0] + @next_frame[1]
     end
   end
   def calc_spare_frame
-    @current_frame.sum + @next_frame[0]
+    first_shot_score + second_shot_score + @next_frame[0]
   end
 
   def last_frame?
