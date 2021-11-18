@@ -6,7 +6,7 @@ class Game
   def initialize(input_text)
     frames = Game.divide_by_frame(input_text)
     @frames = frames.map.with_index do |frame, index|
-      Frame.new(index, frames,*frame,)
+      Frame.new(index, *frame)
     end
   end
 
@@ -28,8 +28,8 @@ class Game
   end
 
   def calc_total_score
-    @frames.map.with_index do |frame|
-      frame.calc_frame_score
+    @frames.map.with_index do |frame, index|
+      frame.calc_frame_score(@frames[index + 1], @frames[index + 2])
     end.sum
   end
 end
