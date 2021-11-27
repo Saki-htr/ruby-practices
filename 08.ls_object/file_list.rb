@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class FileList
-  def initialize(a_opt, r_opt)
-    @all_list = a_opt
-    @reverse_list = r_opt
+  def initialize(all_list, reverse_list)
+    @all_list = all_list
+    @reverse_list = reverse_list
   end
 
   def decide_files
