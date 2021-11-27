@@ -28,7 +28,9 @@ class LongFormatter
       print "\n"
     end
   end
+
   private
+
   def calc_total_blocks
     @file_infos.map do |file_info|
       File.lstat(file_info.file).blocks

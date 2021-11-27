@@ -11,7 +11,8 @@ class LsCommand
     options = ARGV.getopts('arl')
     files = FileList.new(options['a'], options['r']).decide_files
     file_infos = files.map { |file| FileInfo.new(file) }
-    options['l'] ? LongFormatter.new(file_infos).output : ShortFormatter.new(file_infos).output
+    formatter = options['l'] ? LongFormatter : ShortFormatter
+    formatter.new(file_infos).output
   end
 end
 
